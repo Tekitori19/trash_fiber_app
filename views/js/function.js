@@ -1,5 +1,3 @@
-
-
 export function setCurrentCss(path) {
     const currentCSS = "bg-indigo-700 text-white".split(" ")
     const defaultCSS = "text-indigo-200 hover:text-white hover:bg-indigo-700".split(" ")
