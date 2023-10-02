@@ -1,0 +1,2 @@
+compile:
+	emcc main.c
