@@ -10,26 +10,26 @@
       
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-            <form class="space-y-6" >
+            <div class="space-y-6" >
               <div>
-                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Mời nhập số thứ nhất:</label>
+                <label for="num1" class="block text-sm font-medium leading-6 text-gray-900">Mời nhập số thứ nhất:</label>
                 <div class="mt-2">
-                  <input id="email" name="email" type="number" min="1" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  <input id="num1" name="num1" type="number" min="2" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
               </div>
 
               <div>
-                <label for="so2" class="block text-sm font-medium leading-6 text-gray-900">Mời nhập số thứ 2:</label>
+                <label for="num2" class="block text-sm font-medium leading-6 text-gray-900">Mời nhập số thứ 2:</label>
                 <div class="mt-2">
-                  <input id="so2" name="so2" type="number" min="1" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  <input id="num2" name="num2" type="number" min="2" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
               </div>
       
               
               <div>
-                <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Bắt đầu tìm</button>
+                <button onclick="run_wasm()" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Bắt đầu tìm</button>
               </div>
-            </form>
+            </div>
       
             <div>
               <div class="relative mt-10">
@@ -41,7 +41,7 @@
                 </div>
               </div>
       
-              <h2 class="mt-6 text-sm font-medium leading-6 text-gray-900 bg-neutral-300"></h2>
+              <h2 id="content" class="mt-6 text-sm font-medium leading-6 text-gray-900 bg-neutral-300 rounded-md py-1.5 px-2"></h2>
 
             </div>
           </div>
@@ -52,4 +52,32 @@
     </div>
   </main>
   <script type="module" defer src="/js/function.js"></script>
-  <script type="module" defer src="/contents/UCLN_BCNN/UCLN_BCNN.js"></script>
+  <script type="module" defer src="/contents/UCLN_BCNN/css.js"></script>
+
+  <script>
+    let exports;
+    WebAssembly.instantiateStreaming(
+      fetch("/contents/UCLN_BCNN/main.wasm"), {}
+    ).then(results => exports = results.instance.exports)
+
+    function run_wasm() {
+      let num1 = document.querySelector("#num1").value;
+      let num2 = document.querySelector("#num2").value;
+      if (num1 === "" || num2 ==="") {
+        alert("vui lòng không để trống giá trị")
+        return
+      }
+      
+      if (num1 == num2) {
+        alert("vui lòng nhập 2 giá trị khác nhau")
+        return
+      }
+
+      let ucln = exports.UCLN(num1, num2);
+      let bcnn = exports.BCNN(num1, num2, ucln);
+      
+
+      document.querySelector("#content").innerHTML += `${num1} và ${num2} có UCLN là ${ucln} có BCNN là ${bcnn} <br/>`
+      
+    }
+  </script>

@@ -1,6 +1,5 @@
-#include <stdio.h>
+#include <emscripten.h>
 
-int main() {
-   printf("main\n");
-   return 0;
-}
+int XacDinhSoNguyenTo(int x);
+int SoChinhPhuong(int x);
+
