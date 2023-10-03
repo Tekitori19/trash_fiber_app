@@ -10,19 +10,19 @@
       
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-            <form class="space-y-6" >
+            <div class="space-y-6" >
               <div>
-                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Mời nhập số điện:</label>
+                <label for="sodien" class="block text-sm font-medium leading-6 text-gray-900">Mời nhập số điện:</label>
                 <div class="mt-2">
-                  <input id="email" name="email" type="number" min="0" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  <input id="sodien" name="sodien" type="number" min="0" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
               </div>
       
               
               <div>
-                <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tính tiền</button>
+                <button onclick="run_wasm()" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Tính tiền</button>
               </div>
-            </form>
+            </div>
       
             <div>
               <div class="relative mt-10">
@@ -34,7 +34,7 @@
                 </div>
               </div>
       
-              <h2 class="mt-6 text-sm font-medium leading-6 text-gray-900 bg-neutral-300 rounded-md py-1.5 px-2"></h2>
+              <h2 id="content" class="mt-6 text-sm font-medium leading-6 text-gray-900 bg-neutral-300 rounded-md py-1.5 px-2"></h2>
 
             </div>
           </div>
@@ -45,4 +45,19 @@
     </div>
   </main>
   <script type="module" defer src="/js/function.js"></script>
-  <script type="module" defer src="/contents/tinhtiendien/tinhtiendien.js"></script>
+  <script type="module" defer src="/contents/tinhtiendien/css.js"></script>
+  <script>
+    let exports;
+    WebAssembly.instantiateStreaming(
+      fetch("/contents/tinhtiendien/main.wasm"), {}
+    ).then(results => exports = results.instance.exports)
+
+    function run_wasm() {
+      let soDien = document.querySelector("#sodien").value;
+      
+      let tienDien = exports.TinhTienDien(soDien)
+
+      document.querySelector("#content").innerHTML += `Số tiền cần trả bao gồm cả thuế là ${Math.ceil(tienDien)} đồng<br/>`
+      
+    }
+  </script>
