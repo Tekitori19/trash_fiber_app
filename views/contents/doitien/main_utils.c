@@ -1,22 +1,48 @@
 #include <emscripten.h>
 
 EMSCRIPTEN_KEEPALIVE
-int UCLN(int x, int y) {
-    int temp = 0;
-    int min = MIN(x, y);
-    int max = MAX(x, y);
-    
-    for (int i = 1; i < max; i++)
-    {
-        if (min % i == 0 && max % i ==0)
-        {
-            temp = i;
-        }   
-    }
-    return temp;
-}
+void DoiTien(int *arr ,int tien_can_doi) {
+    int tien = tien_can_doi;
 
-EMSCRIPTEN_KEEPALIVE
-int BCNN(int x, int y, int ucln) {
-    return (x*y)/ucln;
+     while (tien > 0)
+    {
+        if (tien >= 500)
+        {
+            arr[0] = tien/500;
+            tien %= 500;
+        } else if (tien >= 200)
+        {
+            arr[1] = tien/200;
+            tien %= 200;
+        } else if (tien >= 100)
+        {
+            arr[2] = tien/100;
+            tien %= 100;
+        } else if (tien >= 50)
+        {
+            arr[3] = tien/50;
+            tien %= 50;
+        } else if (tien >= 20)
+        {
+            arr[4] = tien/20;
+            tien %= 20;
+        } else if (tien >= 10)
+        {
+            arr[5] = tien/10;
+            tien %= 10;
+        } else if (tien >= 5)
+        {
+            arr[6] = tien/5;
+            tien %= 5;
+        } else if (tien >= 2)
+        {
+            arr[7] = tien/2;
+            tien %= 2;
+        }else
+        {
+            tien -= 1;
+            arr[8]=0;
+            arr[8]++;
+        }
+    }
 }

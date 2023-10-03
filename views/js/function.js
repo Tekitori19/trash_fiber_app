@@ -1,6 +1,6 @@
 export function setCurrentCss(path) {
-    const currentCSS = "bg-indigo-700 text-white".split(" ")
-    const defaultCSS = "text-indigo-200 hover:text-white hover:bg-indigo-700".split(" ")
+    const currentCSS = "bg-orange-700 text-white".split(" ")
+    const defaultCSS = "text-orange-200 hover:text-white hover:bg-orange-700".split(" ")
     
     let node = document.querySelectorAll("nav a")
     
