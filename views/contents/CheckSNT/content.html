@@ -14,7 +14,7 @@
               <div>
                 <label for="num" class="block text-sm font-medium leading-6 text-gray-900">Mời nhập số nguyên:</label>
                 <div class="mt-2">
-                  <input id="num" name="num" type="number" min="2" placeholder="2"  required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6">
+                  <input id="num" step="1" pattern="\d+" name="num" type="number" min="2" placeholder="2"  required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6">
                 </div>
               </div>
       
@@ -45,9 +45,12 @@
     </div>
   </main>
   <script type="module" defer src="/js/function.js"></script>
-  <script type="module" defer src="/contents/CheckSNT/css.js"></script>
+  <!-- <script type="module" defer src="/contents/CheckSNT/css.js"></script> -->
   
-  <script>
+  <script type="module">
+    import { setCurrentCss } from "../../js/function.js";
+    setCurrentCss("Kiểm tra số nguyên")
+
     let exports;
     WebAssembly.instantiateStreaming(
       fetch("/contents/CheckSNT/main.wasm"), {}

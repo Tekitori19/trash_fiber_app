@@ -14,7 +14,7 @@ func main() {
 	})
 
 	app.Static("/", "./views")
-	app.Static("/", "./views/js")
+	// app.Static("/", "./views/js")
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Render("contents/CheckSNT/content", nil, "layouts/main")
