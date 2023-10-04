@@ -53,6 +53,7 @@
     ).then(results => exports = results.instance.exports)
 
     function run_wasm() {
+      document.querySelector("#content").innerHTML = ""
       let soDien = document.querySelector("#sodien").value;
       
       let tienDien = exports.TinhTienDien(soDien)
