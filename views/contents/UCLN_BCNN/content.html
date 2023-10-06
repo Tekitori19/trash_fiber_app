@@ -51,21 +51,30 @@
       
     </div>
   </main>
-  <script type="module" defer src="/js/function.js"></script>
-  <!-- <script type="module" defer src="/contents/UCLN_BCNN/css.js"></script> -->
 
-  <script type="module">
-    import { setCurrentCss } from "../../js/function.js"
-    setCurrentCss("Ước chung và bội chung của 2 số")
-
+  <script >
     let exports;
     WebAssembly.instantiateStreaming(
       fetch("/contents/UCLN_BCNN/main.wasm"), {}
     ).then(results => exports = results.instance.exports)
 
+    let checkInt;
+    import("../../js/function.js").then(({isInt, setCurrentCss})=> {
+      checkInt = isInt
+      setCurrentCss("Ước chung và bội chung của 2 số")
+    })
+
     function run_wasm() {
       let num1 = document.querySelector("#num1").value;
+      if (!checkInt(num1)) {
+        alert("chỉ được phép nhập số nguyên")
+        return
+      }
       let num2 = document.querySelector("#num2").value;
+      if (!checkInt(num2)) {
+        alert("chỉ được phép nhập số nguyên")
+        return
+      }
       if (num1 === "" || num2 ==="") {
         alert("vui lòng không để trống giá trị")
         return
@@ -84,3 +93,4 @@
       
     }
   </script>
+  <!-- <script type="module" defer src="/contents/UCLN_BCNN/css.js"></script> -->

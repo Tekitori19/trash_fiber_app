@@ -44,16 +44,10 @@
       
     </div>
   </main>
-  <script type="module" defer src="/js/function.js"></script>
-  <!-- <script type="module" defer src="/contents/doitien/css.js"></script> -->
-
-  <script type="module">
-    import { setCurrentCss } from "../../js/function.js"
-    setCurrentCss("Đổi tiền")
-
+  <script>
     let memory = new WebAssembly.Memory({
-      initial: 10,
-      maximum: 50
+    initial: 10,
+    maximum: 50
     })
 
     let exports;
@@ -68,12 +62,23 @@
       memory = results.instance.exports.memory
     })
 
-    function run_wasm() {
+      let checkInt;
+      import("../../js/function.js").then(({isInt, setCurrentCss})=> {
+        checkInt = isInt
+        setCurrentCss("Đổi tiền")
+      })
+  
+      function run_wasm() {
       document.querySelector("#content").innerHTML = ""
+
       let arr = new Uint32Array(memory.buffer)
-      let tien = document.querySelector("#tien").value
-      // console.log(tien);
       
+      let tien = document.querySelector("#tien").value;
+      if (!checkInt(tien)) {
+        alert("vui lòng nhập số nguyên")
+        return
+      }
+
       function switchResult(a){
         switch (a) {
           
@@ -118,9 +123,8 @@
       exports.DoiTien(0, tien)
       for (let i = 0; i < 9; i++) {
         // console.log(arr[i]);
-        document.querySelector("#content").innerHTML += `${arr[i]} tờ ${switchResult(i)} <br/>`
-        
+        document.querySelector("#content").innerHTML += `${arr[i]} tờ ${switchResult(i)} <br/>` 
       }
-      
-    }
+    
+  }
   </script>

@@ -44,24 +44,28 @@
       
     </div>
   </main>
-  <script type="module" defer src="/js/function.js"></script>
-  <!-- <script type="module" defer src="/contents/CheckSNT/css.js"></script> -->
-  
-  <script type="module">
-    import { setCurrentCss } from "../../js/function.js";
-    setCurrentCss("Kiểm tra số nguyên")
 
+  <script >
     let exports;
     WebAssembly.instantiateStreaming(
       fetch("/contents/CheckSNT/main.wasm"), {}
     ).then(results => exports = results.instance.exports)
 
+    let checkInt;
+    import("../../js/function.js").then(({isInt, setCurrentCss})=> {
+      checkInt = isInt
+      setCurrentCss("Kiểm tra số nguyên")
+    })
+
     function run_wasm() {
       let num = document.querySelector("#num").value;
-      
+      if (!checkInt(num)) {
+        alert("chỉ được nhập số nguyên")
+        return
+      }
+
       let err1 = exports.XacDinhSoNguyenTo(num);
       if (err1 === 1) {
-        // console.log(err1)
         document.querySelector("#content").innerHTML += `${num ? num : 2} là số nguyên tố <br/>`  
       }
       
@@ -71,7 +75,6 @@
       }
 
       if (err1 === 0 && err2 === 0) {
-        // console.log(err1, err2, num);
         document.querySelector("#content").innerHTML += `${num} là số nguyên <br/>`
       }
       

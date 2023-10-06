@@ -44,21 +44,25 @@
       
     </div>
   </main>
-  <script type="module" defer src="/js/function.js"></script>
-  <!-- <script type="module" defer src="/contents/tinhtiendien/css.js"></script> -->
-  <script type="module">
-    import { setCurrentCss } from "../../js/function.js"
-    setCurrentCss("Tính tiền điện")
-
-
+  <script>
     let exports;
     WebAssembly.instantiateStreaming(
       fetch("/contents/tinhtiendien/main.wasm"), {}
     ).then(results => exports = results.instance.exports)
 
+    let checkInt;
+    import("../../js/function.js").then(({isInt, setCurrentCss})=> {
+      checkInt = isInt
+      setCurrentCss("Tính tiền điện")
+    })
+
     function run_wasm() {
       document.querySelector("#content").innerHTML = ""
       let soDien = document.querySelector("#sodien").value;
+      if (!checkInt(soDien)) {
+        alert("chỉ được phép nhập số nguyên")
+        return
+      }
       
       let tienDien = exports.TinhTienDien(soDien)
 
