@@ -37,7 +37,7 @@ func main() {
 	})
 
 	app.Get("/tinhlainganhang", func(c *fiber.Ctx) error {
-		return c.Render("contents/CheckSNT/content", nil, "layouts/main")
+		return c.Render("contents/tinhlainganhang/content", nil, "layouts/main")
 	})
 
 	app.Get("/vaytienmuaxe", func(c *fiber.Ctx) error {
