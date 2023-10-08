@@ -41,7 +41,7 @@ func main() {
 	})
 
 	app.Get("/vaytienmuaxe", func(c *fiber.Ctx) error {
-		return c.Render("contents/CheckSNT/content", nil, "layouts/main")
+		return c.Render("contents/vaytienmuaxe/content", nil, "layouts/main")
 	})
 
 	app.Get("/sapxepthongtinsv", func(c *fiber.Ctx) error {
