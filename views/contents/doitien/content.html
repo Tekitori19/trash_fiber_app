@@ -74,8 +74,8 @@
       let arr = new Uint32Array(memory.buffer)
       
       let tien = document.querySelector("#tien").value;
-      if (!checkInt(tien)) {
-        alert("vui lòng nhập số nguyên")
+      if (!checkInt(tien) || tien < 0) {
+        alert("vui lòng nhập số dương, không được để trống giá trị")
         return
       }
 

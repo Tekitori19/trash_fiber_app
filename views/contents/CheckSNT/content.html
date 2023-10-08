@@ -59,8 +59,8 @@
 
     function run_wasm() {
       let num = document.querySelector("#num").value;
-      if (!checkInt(num)) {
-        alert("chỉ được nhập số nguyên")
+      if (!checkInt(num) || num < 2) {
+        alert("chỉ được nhập số nguyên lớn hơn 1")
         return
       }
 

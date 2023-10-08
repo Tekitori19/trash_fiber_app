@@ -66,14 +66,14 @@
     function run_wasm() {
       document.querySelector("#content").innerHTML = ""
       let hours1 = document.querySelector("#hours1").value;
-      if (!checkInt(hours1)) {
-        alert("chỉ được phép nhập số nguyên")
+      if (!checkInt(hours1)|| hours1 < 12) {
+        alert("vui lòng chỉ nhập số giờ từ 12 giờ trở đi")
         return
       }
 
       let hours2 = document.querySelector("#hours2").value;
-      if (!checkInt(hours2)) {
-        alert("chỉ được phép nhập số nguyên")
+      if (!checkInt(hours2)|| hours2 >23) {
+        alert("vui lòng chỉ nhập số giờ từ 23 giờ trở lại")
         return
       }
 

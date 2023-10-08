@@ -66,13 +66,13 @@
 
     function run_wasm() {
       let num1 = document.querySelector("#num1").value;
-      if (!checkInt(num1)) {
-        alert("chỉ được phép nhập số nguyên")
+      if (!checkInt(num1) || num1 < 1) {
+        alert("chỉ được phép nhập số nguyên dương lớn hơn 1")
         return
       }
       let num2 = document.querySelector("#num2").value;
-      if (!checkInt(num2)) {
-        alert("chỉ được phép nhập số nguyên")
+      if (!checkInt(num2) || num2 < 1) {
+        alert("chỉ được phép nhập số nguyên dương lớn hơn 1")
         return
       }
       if (num1 === "" || num2 ==="") {

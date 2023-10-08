@@ -59,8 +59,8 @@
     function run_wasm() {
       document.querySelector("#content").innerHTML = ""
       let soDien = document.querySelector("#sodien").value;
-      if (!checkInt(soDien)) {
-        alert("chỉ được phép nhập số nguyên")
+      if (!checkInt(soDien) || soDien<0) {
+        alert("vui lòng nhập số dương")
         return
       }
       
