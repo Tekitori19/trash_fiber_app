@@ -53,7 +53,7 @@ func main() {
 	})
 
 	app.Get("/phanso", func(c *fiber.Ctx) error {
-		return c.Render("contents/CheckSNT/content", nil, "layouts/main")
+		return c.Render("contents/phanso/content", nil, "layouts/main")
 	})
 
 	app.Get("/sidebar", func(c *fiber.Ctx) error {
