@@ -49,7 +49,7 @@ func main() {
 	})
 
 	app.Get("/fpoly_lott", func(c *fiber.Ctx) error {
-		return c.Render("contents/CheckSNT/content", nil, "layouts/main")
+		return c.Render("contents/fpoly_lott/content", nil, "layouts/main")
 	})
 
 	app.Get("/phanso", func(c *fiber.Ctx) error {
